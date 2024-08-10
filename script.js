@@ -1,8 +1,6 @@
-// Import Firebase libraries
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAmrrf41ZDZW_OHcCEQ1pIa4ta2h2IvW8Y",
   authDomain: "expense-tracker-mikey.firebaseapp.com",
@@ -13,7 +11,6 @@ const firebaseConfig = {
   measurementId: "G-3SVZCPVHBR"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -21,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const expenseForm = document.getElementById('expense-form');
   const expenseList = document.getElementById('expense-list');
 
-  // Load expenses from Firestore
   loadExpenses();
 
   expenseForm.addEventListener('submit', async (event) => {
@@ -41,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
           amount,
           date,
         });
-        addExpenseToList(docRef.id, title, amount, date); // Pass the document ID
+        addExpenseToList(docRef.id, title, amount, date);
         expenseForm.reset();
       } catch (e) {
         console.error('Error adding document: ', e);
@@ -56,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const querySnapshot = await getDocs(collection(db, 'expenses'));
       querySnapshot.forEach((doc) => {
         const expense = doc.data();
-        addExpenseToList(doc.id, expense.title, expense.amount, expense.date); // Pass the document ID
+        addExpenseToList(doc.id, expense.title, expense.amount, expense.date);
       });
     } catch (e) {
       console.error('Error loading documents: ', e);
